@@ -50,7 +50,13 @@ int main(int argc, char *argv[])
     // socket create and verification
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) {
-        printf("socket creation failed...\n");
+        printf("Error: 'socket' failed\n");
+        exit(0);
+    }
+
+    int enable = 1;
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const char *)&enable, sizeof(enable)) < 0) {
+        printf("Error: 'setsockopt' failed\n");
         exit(0);
     }
 
